@@ -1,4 +1,9 @@
 
+
+<img src="https://github.com/user-attachments/assets/59c331ca-9771-47db-8d7d-789b3c16fbe2" alt="play" height="150"/>
+
+
+
 # My Image
 
 My Image App lets users search, view, and download images effortlessly. Featuring smooth paging for quick browsing, users can bookmark favorite images to access anytime.
@@ -9,6 +14,18 @@ The App supports
     2. Paging for seamless image loading.  
     3. Bookmarking favorite images. 
     4. Download images with size selection for customized quality.
+
+
+
+# Download the App here
+
+<a href="https://indusapp.store/81ugls91">
+  <img src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png" 
+       alt="Get it on Indus Appstore" 
+       width="200" 
+       style="margin: 10px 0;" />
+</a>
+
 
 # App Screen Shorts
 
@@ -27,14 +44,4 @@ The App supports
 Kotlin, Jetpack Compose.
 
 
-
-
-
-
-
-
-
-## Tech Stack
-
-Kotlin, Jetpack Compose.
 
