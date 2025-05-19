@@ -14,6 +14,7 @@ The App supports
     2. Paging for seamless image loading.  
     3. Bookmarking favorite images. 
     4. Download images with size selection for customized quality.
+    5. Supports Dark and Light Mode.
 
 
 
