@@ -32,6 +32,7 @@ The App supports
 
 <p>
   <img src="https://github.com/user-attachments/assets/f7bd750a-ae0d-42af-bda8-9b47451f5761" width="18%" style="border:2px solid green; border-radius:6px; margin:5px;" />
+  <img src="https://github.com/user-attachments/assets/5e2a02bd-a766-4bb8-af8e-e400d16ed273" width="18%" style="border:2px solid green; border-radius:6px; margin:5px;" />
   <img src="https://github.com/user-attachments/assets/a9436508-153b-4756-8641-0952c48c42c5" width="18%" style="border:2px solid green; border-radius:6px; margin:5px;" />
   <img src="https://github.com/user-attachments/assets/33ca2d1c-b465-4906-b04d-19a833069032" width="18%" style="border:2px solid green; border-radius:6px; margin:5px;" />
   <img src="https://github.com/user-attachments/assets/cd0b9f90-3746-45a8-ba66-d5d3bcdf64b8" width="18%" style="border:2px solid green; border-radius:6px; margin:5px;" />
