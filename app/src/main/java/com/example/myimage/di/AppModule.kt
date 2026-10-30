@@ -2,6 +2,7 @@ package com.example.myimage.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.myimage.BuildConfig
 import com.example.myimage.data.local.MyImageAppDataBase
 import com.example.myimage.data.remote.UnsplashApi
 import com.example.myimage.data.repo.DownloaderImp
@@ -21,6 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -32,9 +35,34 @@ object AppModule {
     @Singleton
     fun provideUnsplashApiService(): UnsplashApi {
         val contentType = "application/json".toMediaType()
-        val json = Json { ignoreUnknownKeys = true }
+        val json = Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+        }
+
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val cleanApiKey = BuildConfig.API_KEY.trim().removeSurrounding("\"").removeSurrounding("'")
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val request = chain.request()
+                val newRequest = if (request.header("Authorization") == null) {
+                    request.newBuilder()
+                        .addHeader("Authorization", "Client-ID $cleanApiKey")
+                        .build()
+                } else {
+                    request
+                }
+                chain.proceed(newRequest)
+            }
+            .addInterceptor(loggingInterceptor)
+            .build()
 
         val retrofit = Retrofit.Builder()
+            .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .baseUrl("https://api.unsplash.com/")
             .build()

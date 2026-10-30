@@ -26,8 +26,12 @@ android {
         }
 
         val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
+        val localPropertiesFile = project.rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            properties.load(localPropertiesFile.inputStream())
+        }
+        val rawApiKey = properties.getProperty("API_KEY")?.trim()?.removeSurrounding("\"")?.removeSurrounding("'") ?: ""
+        buildConfigField("String", "API_KEY", "\"$rawApiKey\"")
     }
     buildTypes {
         release {
@@ -110,6 +114,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     //Dagger-Hilt
     implementation ("com.google.dagger:hilt-android:2.49")

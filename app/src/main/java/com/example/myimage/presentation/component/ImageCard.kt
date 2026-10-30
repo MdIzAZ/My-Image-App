@@ -36,12 +36,20 @@ fun ImageCard(
 ) {
 
     val imageRequest = ImageRequest.Builder(LocalContext.current)
-        .data(image?.imageUrlSmall)
+        .data(image?.imageUrlSmall?.ifEmpty { image.imageUrlRegular })
         .crossfade(true)
         .build()
 
-    val aspectRatio by remember {
-        derivedStateOf { (image?.width?.toFloat() ?: 1f) / (image?.height?.toFloat() ?: 1f) }
+    val aspectRatio by remember(image?.id, image?.width, image?.height) {
+        derivedStateOf {
+            val width = image?.width?.toFloat() ?: 1f
+            val height = image?.height?.toFloat() ?: 1f
+            if (height > 0f && width > 0f) {
+                (width / height).coerceIn(0.5f, 2.5f)
+            } else {
+                1f
+            }
+        }
     }
 
     ElevatedCard(
@@ -55,14 +63,16 @@ fun ImageCard(
         Box(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
                 model = imageRequest,
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds,
+                contentDescription = image?.description,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize(),
             )
             FavouriteButton(
-                modifier = Modifier.align(Alignment.TopEnd).padding(10.dp),
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(10.dp),
                 isFavourite = isFavourite,
-                onToggle = {onToggle()}
+                onToggle = { onToggle() }
             )
         }
 
